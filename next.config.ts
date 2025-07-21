@@ -8,8 +8,8 @@ export default {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "cdn.shopify.com",
-        pathname: "/s/files/**",
+        hostname: "image.tmdb.org",
+        pathname: "/**",
       },
     ],
   },

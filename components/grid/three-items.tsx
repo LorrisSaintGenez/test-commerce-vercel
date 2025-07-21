@@ -1,7 +1,7 @@
 "use client";
 
+import { TMDBHit } from "components/algolia/hits";
 import { GridTileImage } from "components/grid/tile";
-import { AlgoliaHit } from "components/algolia/hits";
 import Link from "next/link";
 import { useHits } from "react-instantsearch";
 
@@ -10,7 +10,7 @@ function ThreeItemGridItem({
   size,
   priority,
 }: {
-  item: AlgoliaHit;
+  item: TMDBHit;
   size: "full" | "half";
   priority?: boolean;
 }) {
@@ -24,11 +24,11 @@ function ThreeItemGridItem({
     >
       <Link
         className="relative block aspect-square h-full w-full"
-        href={`/product/${item.handle}`}
+        href={`/movie/${item.id}`}
         prefetch={true}
       >
         <GridTileImage
-          src={item.product_image}
+          src={item.poster_path}
           fill
           sizes={
             size === "full"
@@ -37,11 +37,6 @@ function ThreeItemGridItem({
           }
           priority={priority}
           alt={item.title}
-          label={{
-            position: size === "full" ? "center" : "bottom",
-            title: item.title as string,
-            amount: item.price.toString(),
-          }}
         />
       </Link>
     </div>
@@ -49,7 +44,7 @@ function ThreeItemGridItem({
 }
 
 export default function ThreeItemGrid() {
-  const { items: homepageItems } = useHits<AlgoliaHit>();
+  const { items: homepageItems } = useHits<TMDBHit>();
 
   if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
 
