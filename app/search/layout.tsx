@@ -3,7 +3,7 @@ import AlgoliaSortBy from "components/algolia/sort-by";
 import { Suspense } from "react";
 
 // Define the sort indices based on your Algolia setup
-export const sortItems = [
+const sortItems = [
   { label: "Relevance", value: "shopify_products" },
   { label: "Price: Low to high", value: "shopify_products_price_asc" },
   { label: "Price: High to low", value: "shopify_products_price_desc" },
