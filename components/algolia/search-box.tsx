@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { useRouter } from 'next/navigation';
-import { useSearchBox } from 'react-instantsearch';
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
+import { useSearchBox } from "react-instantsearch";
 
 export default function AlgoliaSearchBox() {
   const { query, refine } = useSearchBox();
   const router = useRouter();
 
   const redirectToSearch = () => {
-    if (!window.location.pathname.startsWith('/search')) {
-      router.replace('/search');
+    if (!window.location.pathname.startsWith("/search")) {
+      router.replace("/search");
     }
-  }
+  };
 
   return (
-    <form 
+    <form
       className="w-max-[550px] relative w-full lg:w-80 xl:w-full"
       onSubmit={(e) => {
         e.preventDefault();
@@ -50,4 +50,4 @@ export function AlgoliaSearchBoxSkeleton() {
       </div>
     </form>
   );
-} 
+}

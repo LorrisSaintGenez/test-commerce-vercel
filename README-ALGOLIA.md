@@ -15,14 +15,14 @@ NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY=your_algolia_search_api_key
 
 ### Main Index: `shopify_products`
 
-This is your primary index containing all products. 
+This is your primary index containing all products.
 
 ### Sort Indices (Optional but Recommended)
 
 Create these replica indices for sorting functionality:
 
 1. `shopify_products_price_asc` - Sort by price ascending
-2. `shopify_products_price_desc` - Sort by price descending  
+2. `shopify_products_price_desc` - Sort by price descending
 3. `shopify_products_created_at_desc` - Sort by creation date descending
 
 ### Required Record Structure
@@ -94,4 +94,4 @@ Modify `components/algolia/hits.tsx` to customize how search results are display
 
 ### Index Configuration
 
-Update the sort indices in `app/search/layout.tsx` to match your Algolia dashboard configuration. 
+Update the sort indices in `app/search/layout.tsx` to match your Algolia dashboard configuration.

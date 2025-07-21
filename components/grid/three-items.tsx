@@ -1,22 +1,26 @@
-'use client';
+"use client";
 
-import { GridTileImage } from 'components/grid/tile';
-import { AlgoliaHit } from 'components/algolia/hits';
-import Link from 'next/link';
-import { useHits } from 'react-instantsearch';
+import { GridTileImage } from "components/grid/tile";
+import { AlgoliaHit } from "components/algolia/hits";
+import Link from "next/link";
+import { useHits } from "react-instantsearch";
 
 function ThreeItemGridItem({
   item,
   size,
-  priority
+  priority,
 }: {
   item: AlgoliaHit;
-  size: 'full' | 'half';
+  size: "full" | "half";
   priority?: boolean;
 }) {
   return (
     <div
-      className={size === 'full' ? 'md:col-span-4 md:row-span-2' : 'md:col-span-2 md:row-span-1'}
+      className={
+        size === "full"
+          ? "md:col-span-4 md:row-span-2"
+          : "md:col-span-2 md:row-span-1"
+      }
     >
       <Link
         className="relative block aspect-square h-full w-full"
@@ -27,12 +31,14 @@ function ThreeItemGridItem({
           src={item.product_image}
           fill
           sizes={
-            size === 'full' ? '(min-width: 768px) 66vw, 100vw' : '(min-width: 768px) 33vw, 100vw'
+            size === "full"
+              ? "(min-width: 768px) 66vw, 100vw"
+              : "(min-width: 768px) 33vw, 100vw"
           }
           priority={priority}
           alt={item.title}
           label={{
-            position: size === 'full' ? 'center' : 'bottom',
+            position: size === "full" ? "center" : "bottom",
             title: item.title as string,
             amount: item.price.toString(),
           }}

@@ -4,11 +4,11 @@ import { Suspense } from "react";
 
 // Define the sort indices based on your Algolia setup
 export const sortItems = [
-  { label: 'Relevance', value: 'shopify_products' },
-  { label: 'Price: Low to high', value: 'shopify_products_price_asc' },
-  { label: 'Price: High to low', value: 'shopify_products_price_desc' },
-  { label: 'Latest arrivals', value: 'shopify_products_created_at_desc' },
-  { label: 'Trending', value: 'shopify_products_trending_desc' }
+  { label: "Relevance", value: "shopify_products" },
+  { label: "Price: Low to high", value: "shopify_products_price_asc" },
+  { label: "Price: High to low", value: "shopify_products_price_desc" },
+  { label: "Latest arrivals", value: "shopify_products_created_at_desc" },
+  { label: "Trending", value: "shopify_products_trending_desc" },
 ];
 
 export default function SearchLayout({
@@ -25,9 +25,7 @@ export default function SearchLayout({
           <AlgoliaRefinementList attribute="options.color" title="Colors" />
         </div>
         <div className="order-last min-h-screen w-full md:order-none">
-          <Suspense fallback={null}>
-            {children}
-          </Suspense>
+          <Suspense fallback={null}>{children}</Suspense>
         </div>
         <div className="order-none flex-none md:order-last md:w-[125px]">
           <AlgoliaSortBy items={sortItems} title="Sort by" />

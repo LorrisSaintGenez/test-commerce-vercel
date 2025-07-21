@@ -1,14 +1,16 @@
-'use client';
+"use client";
 
-import { Dialog, Transition } from '@headlessui/react';
-import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { Fragment, Suspense, useEffect, useState } from 'react';
+import { Dialog, Transition } from "@headlessui/react";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
+import { Fragment, Suspense, useEffect, useState } from "react";
 
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Menu } from 'lib/shopify/types';
-import SearchProvider from 'components/search-provider';
-import AlgoliaSearchBox, { AlgoliaSearchBoxSkeleton } from 'components/algolia/search-box';
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Menu } from "lib/shopify/types";
+import SearchProvider from "components/search-provider";
+import AlgoliaSearchBox, {
+  AlgoliaSearchBoxSkeleton,
+} from "components/algolia/search-box";
 
 export default function MobileMenu({ menu }: { menu: Menu[] }) {
   const pathname = usePathname();
@@ -23,8 +25,8 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
         setIsOpen(false);
       }
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [isOpen]);
 
   useEffect(() => {
@@ -86,7 +88,11 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                         className="py-2 text-xl text-black transition-colors hover:text-neutral-500 dark:text-white"
                         key={item.title}
                       >
-                        <Link href={item.path} prefetch={true} onClick={closeMobileMenu}>
+                        <Link
+                          href={item.path}
+                          prefetch={true}
+                          onClick={closeMobileMenu}
+                        >
                           {item.title}
                         </Link>
                       </li>

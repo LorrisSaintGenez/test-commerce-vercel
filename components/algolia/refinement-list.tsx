@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import clsx from 'clsx';
-import { useRefinementList } from 'react-instantsearch';
-import { useSearchParams, usePathname } from 'next/navigation';
-import React from 'react';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import clsx from "clsx";
+import { useRefinementList } from "react-instantsearch";
+import { useSearchParams, usePathname } from "next/navigation";
+import React from "react";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 interface AlgoliaRefinementListProps {
   attribute: string;
   title?: string;
 }
 
-function RefinementItem({ 
-  value, 
-  count, 
-  isRefined, 
-  refine 
-}: { 
-  value: string; 
-  count: number; 
-  isRefined: boolean; 
+function RefinementItem({
+  value,
+  count,
+  isRefined,
+  refine,
+}: {
+  value: string;
+  count: number;
+  isRefined: boolean;
   refine: () => void;
 }) {
   const pathname = usePathname();
@@ -35,10 +35,10 @@ function RefinementItem({
       <button
         onClick={handleClick}
         className={clsx(
-          'w-full text-left text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100',
+          "w-full text-left text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100",
           {
-            'underline underline-offset-4 font-medium': isRefined
-          }
+            "underline underline-offset-4 font-medium": isRefined,
+          },
         )}
       >
         {value} ({count})
@@ -47,10 +47,10 @@ function RefinementItem({
   );
 }
 
-function RefinementItemDropdown({ 
-  items, 
-  refine 
-}: { 
+function RefinementItemDropdown({
+  items,
+  refine,
+}: {
   items: Array<{
     value: string;
     label: string;
@@ -59,7 +59,7 @@ function RefinementItemDropdown({
   }>;
   refine: (value: string) => void;
 }) {
-  const [active, setActive] = React.useState('');
+  const [active, setActive] = React.useState("");
   const [openSelect, setOpenSelect] = React.useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -70,13 +70,13 @@ function RefinementItemDropdown({
       }
     };
 
-    window.addEventListener('click', handleClickOutside);
-    return () => window.removeEventListener('click', handleClickOutside);
+    window.addEventListener("click", handleClickOutside);
+    return () => window.removeEventListener("click", handleClickOutside);
   }, []);
 
   React.useEffect(() => {
-    const activeItem = items.find(item => item.isRefined);
-    setActive(activeItem ? activeItem.label : 'All Categories');
+    const activeItem = items.find((item) => item.isRefined);
+    setActive(activeItem ? activeItem.label : "All Categories");
   }, [items]);
 
   return (
@@ -108,9 +108,9 @@ function RefinementItemDropdown({
   );
 }
 
-export default function AlgoliaRefinementList({ 
-  attribute, 
-  title = "Collections" 
+export default function AlgoliaRefinementList({
+  attribute,
+  title = "Collections",
 }: AlgoliaRefinementListProps) {
   const { items, refine } = useRefinementList({
     attribute,
@@ -138,11 +138,8 @@ export default function AlgoliaRefinementList({
         ))}
       </ul>
       <ul className="md:hidden">
-        <RefinementItemDropdown 
-          items={items} 
-          refine={refine}
-        />
+        <RefinementItemDropdown items={items} refine={refine} />
       </ul>
     </nav>
   );
-} 
+}

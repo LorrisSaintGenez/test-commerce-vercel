@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import clsx from 'clsx';
-import { useSortBy } from 'react-instantsearch';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import { useEffect, useRef, useState } from 'react';
+import clsx from "clsx";
+import { useSortBy } from "react-instantsearch";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { useEffect, useRef, useState } from "react";
 
 interface AlgoliaSortByProps {
   items: Array<{
@@ -13,24 +13,27 @@ interface AlgoliaSortByProps {
   title?: string;
 }
 
-function SortItem({ 
-  label, 
-  value, 
-  isActive, 
-  onSelect 
-}: { 
-  label: string; 
-  value: string; 
-  isActive: boolean; 
+function SortItem({
+  label,
+  value,
+  isActive,
+  onSelect,
+}: {
+  label: string;
+  value: string;
+  isActive: boolean;
   onSelect: () => void;
 }) {
   return (
     <li className="mt-2 flex text-sm text-black dark:text-white">
       <button
         onClick={onSelect}
-        className={clsx('w-full text-left hover:underline hover:underline-offset-4', {
-          'underline underline-offset-4 font-medium': isActive
-        })}
+        className={clsx(
+          "w-full text-left hover:underline hover:underline-offset-4",
+          {
+            "underline underline-offset-4 font-medium": isActive,
+          },
+        )}
       >
         {label}
       </button>
@@ -38,11 +41,11 @@ function SortItem({
   );
 }
 
-function SortItemDropdown({ 
-  items, 
-  currentRefinement, 
-  refine 
-}: { 
+function SortItemDropdown({
+  items,
+  currentRefinement,
+  refine,
+}: {
   items: Array<{
     label: string;
     value: string;
@@ -50,7 +53,7 @@ function SortItemDropdown({
   currentRefinement: string;
   refine: (value: string) => void;
 }) {
-  const [active, setActive] = useState('');
+  const [active, setActive] = useState("");
   const [openSelect, setOpenSelect] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -61,13 +64,13 @@ function SortItemDropdown({
       }
     };
 
-    window.addEventListener('click', handleClickOutside);
-    return () => window.removeEventListener('click', handleClickOutside);
+    window.addEventListener("click", handleClickOutside);
+    return () => window.removeEventListener("click", handleClickOutside);
   }, []);
 
   useEffect(() => {
-    const activeItem = items.find(item => item.value === currentRefinement);
-    setActive(activeItem ? activeItem.label : items[0]?.label || '');
+    const activeItem = items.find((item) => item.value === currentRefinement);
+    setActive(activeItem ? activeItem.label : items[0]?.label || "");
   }, [currentRefinement, items]);
 
   return (
@@ -99,12 +102,12 @@ function SortItemDropdown({
   );
 }
 
-export default function AlgoliaSortBy({ 
-  items, 
-  title = "Sort by" 
+export default function AlgoliaSortBy({
+  items,
+  title = "Sort by",
 }: AlgoliaSortByProps) {
   const { currentRefinement, options, refine } = useSortBy({
-    items
+    items,
   });
 
   return (
@@ -126,7 +129,7 @@ export default function AlgoliaSortBy({
         ))}
       </ul>
       <ul className="md:hidden">
-        <SortItemDropdown 
+        <SortItemDropdown
           items={options}
           currentRefinement={currentRefinement}
           refine={refine}
@@ -134,4 +137,4 @@ export default function AlgoliaSortBy({
       </ul>
     </nav>
   );
-} 
+}

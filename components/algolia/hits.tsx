@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useHits } from 'react-instantsearch';
-import Grid from 'components/grid';
-import { GridTileImage } from 'components/grid/tile';
-import Link from 'next/link';
+import { useHits } from "react-instantsearch";
+import Grid from "components/grid";
+import { GridTileImage } from "components/grid/tile";
+import Link from "next/link";
 
 export type AlgoliaHit = {
   objectID: string;
@@ -24,7 +24,7 @@ export type AlgoliaHit = {
 export function AlgoliaHitItem({ hit }: { hit: AlgoliaHit }) {
   const imageUrl = hit.product_image || hit.image;
   const price = hit.price || hit.variants_min_price;
-  
+
   return (
     <Grid.Item className="animate-fadeIn">
       <Link
@@ -61,4 +61,4 @@ export default function AlgoliaHits() {
       ))}
     </Grid>
   );
-} 
+}
