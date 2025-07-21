@@ -84,7 +84,6 @@ Your Algolia records should match this structure (based on the provided example)
 To add more refinement options, create new `AlgoliaRefinementList` components:
 
 ```tsx
-<AlgoliaRefinementList attribute="vendor" title="Brands" />
 <AlgoliaRefinementList attribute="tags" title="Tags" />
 ```
 
