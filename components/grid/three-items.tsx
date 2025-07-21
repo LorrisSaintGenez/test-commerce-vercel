@@ -1,14 +1,16 @@
+'use client';
+
 import { GridTileImage } from 'components/grid/tile';
-import { getCollectionProducts } from 'lib/shopify';
-import type { Product } from 'lib/shopify/types';
+import { AlgoliaHit } from 'components/algolia/hits';
 import Link from 'next/link';
+import { useHits } from 'react-instantsearch';
 
 function ThreeItemGridItem({
   item,
   size,
   priority
 }: {
-  item: Product;
+  item: AlgoliaHit;
   size: 'full' | 'half';
   priority?: boolean;
 }) {
@@ -22,7 +24,7 @@ function ThreeItemGridItem({
         prefetch={true}
       >
         <GridTileImage
-          src={item.featuredImage.url}
+          src={item.product_image}
           fill
           sizes={
             size === 'full' ? '(min-width: 768px) 66vw, 100vw' : '(min-width: 768px) 33vw, 100vw'
@@ -32,8 +34,7 @@ function ThreeItemGridItem({
           label={{
             position: size === 'full' ? 'center' : 'bottom',
             title: item.title as string,
-            amount: item.priceRange.maxVariantPrice.amount,
-            currencyCode: item.priceRange.maxVariantPrice.currencyCode
+            amount: item.price.toString(),
           }}
         />
       </Link>
@@ -41,11 +42,8 @@ function ThreeItemGridItem({
   );
 }
 
-export async function ThreeItemGrid() {
-  // Collections that start with `hidden-*` are hidden from the search page.
-  const homepageItems = await getCollectionProducts({
-    collection: 'hidden-homepage-featured-items'
-  });
+export default function ThreeItemGrid() {
+  const { items: homepageItems } = useHits<AlgoliaHit>();
 
   if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
 

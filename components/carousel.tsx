@@ -1,10 +1,12 @@
-import { getCollectionProducts } from 'lib/shopify';
+'use client';
+
 import Link from 'next/link';
+import { useHits } from 'react-instantsearch';
+import { AlgoliaHit } from './algolia/hits';
 import { GridTileImage } from './grid/tile';
 
-export async function Carousel() {
-  // Collections that start with `hidden-*` are hidden from the search page.
-  const products = await getCollectionProducts({ collection: 'hidden-homepage-carousel' });
+export default function Carousel() {
+  const { items: products } = useHits<AlgoliaHit>();
 
   if (!products?.length) return null;
 
@@ -24,10 +26,9 @@ export async function Carousel() {
                 alt={product.title}
                 label={{
                   title: product.title,
-                  amount: product.priceRange.maxVariantPrice.amount,
-                  currencyCode: product.priceRange.maxVariantPrice.currencyCode
+                  amount: product.price.toString(),
                 }}
-                src={product.featuredImage?.url}
+                src={product.product_image}
                 fill
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
               />

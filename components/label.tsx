@@ -9,7 +9,7 @@ const Label = ({
 }: {
   title: string;
   amount: string;
-  currencyCode: string;
+  currencyCode?: string;
   position?: 'bottom' | 'center';
 }) => {
   return (

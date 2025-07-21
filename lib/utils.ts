@@ -22,7 +22,9 @@ export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
 export const validateEnvironmentVariables = () => {
   const requiredEnvironmentVariables = [
     'SHOPIFY_STORE_DOMAIN',
-    'SHOPIFY_STOREFRONT_ACCESS_TOKEN'
+    'SHOPIFY_STOREFRONT_ACCESS_TOKEN',
+    'ALGOLIA_APPLICATION_ID',
+    'ALGOLIA_SEARCH_API_KEY'
   ];
   const missingEnvironmentVariables = [] as string[];
 
