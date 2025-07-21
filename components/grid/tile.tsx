@@ -1,50 +1,48 @@
 import clsx from "clsx";
 import Image from "next/image";
-import Label from "../label";
+import { TMDBHit } from "../algolia/hits";
 
 export function GridTileImage({
   isInteractive = true,
   active,
-  label,
+  data,
   ...props
 }: {
   isInteractive?: boolean;
   active?: boolean;
-  label?: {
-    title: string;
-    amount: string;
-    currencyCode?: string;
-    position?: "bottom" | "center";
-  };
+  data?: TMDBHit;
 } & React.ComponentProps<typeof Image>) {
   return (
     <div
       className={clsx(
-        "group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 dark:bg-black",
+        "group relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 dark:bg-black",
         {
-          relative: label,
           "border-2 border-blue-600": active,
           "border-neutral-200 dark:border-neutral-800": !active,
-        },
+        }
       )}
     >
-      {props.src ? (
-        <Image
-          className={clsx("relative h-full w-full object-contain", {
-            "transition duration-300 ease-in-out group-hover:scale-105":
-              isInteractive,
-          })}
-          {...props}
-        />
+      {data ? (
+        <div className="hidden absolute top-0 left-0 w-full h-full z-10 bg-black/80 group-hover:block">
+          <div className="flex flex-col items-center justify-center h-full">
+            <p className="text-white text-center text-2xl font-bold">
+              {data.title}
+            </p>
+            {data.release_date && (
+              <p className="text-white text-center text-sm">
+                {new Date(data.release_date).getFullYear()}
+              </p>
+            )}
+          </div>
+        </div>
       ) : null}
-      {label ? (
-        <Label
-          title={label.title}
-          amount={label.amount}
-          currencyCode={label.currencyCode}
-          position={label.position}
-        />
-      ) : null}
+      <Image
+        className={clsx("relative h-full w-full object-contain", {
+          "transition duration-300 ease-in-out group-hover:scale-105":
+            isInteractive,
+        })}
+        {...props}
+      />
     </div>
   );
 }

@@ -1,9 +1,9 @@
 "use client";
 
-import clsx from "clsx";
-import { useSortBy } from "react-instantsearch";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
+import { useSortBy } from "react-instantsearch";
 
 interface AlgoliaSortByProps {
   items: Array<{
@@ -25,14 +25,12 @@ function SortItem({
   onSelect: () => void;
 }) {
   return (
-    <li className="mt-2 flex text-sm text-black dark:text-white">
+    <li className="flex text-sm text-black dark:text-white">
       <button
         onClick={onSelect}
         className={clsx(
-          "w-full text-left hover:underline hover:underline-offset-4",
-          {
-            "underline underline-offset-4 font-medium": isActive,
-          },
+          "w-full text-left hover:font-bold cursor-pointer text-sm",
+          isActive ? "font-bold" : "font-thin"
         )}
       >
         {label}
@@ -113,11 +111,11 @@ export default function AlgoliaSortBy({
   return (
     <nav>
       {title ? (
-        <h3 className="hidden text-xs text-neutral-500 md:block dark:text-neutral-400">
+        <h3 className="hidden text-xs text-neutral-500 md:block dark:text-neutral-400 mb-2">
           {title}
         </h3>
       ) : null}
-      <ul className="hidden md:block">
+      <ul className="hidden md:block space-y-1">
         {options.map((option) => (
           <SortItem
             key={option.value}

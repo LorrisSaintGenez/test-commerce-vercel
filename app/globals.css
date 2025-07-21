@@ -4,6 +4,7 @@
 @plugin "@tailwindcss/typography";
 
 @layer base {
+
   *,
   ::after,
   ::before,
@@ -36,12 +37,27 @@ button {
     0% {
       transform: translateX(0);
     }
+
     100% {
-      transform: translateX(-50%);
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes reverse-carousel {
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(0);
     }
   }
 
   .animate-carousel {
-    animation: carousel 30s linear infinite;
+    animation: carousel 300s linear infinite;
+  }
+
+  .animate-reverse-carousel {
+    animation: reverse-carousel 300s linear infinite;
   }
 }

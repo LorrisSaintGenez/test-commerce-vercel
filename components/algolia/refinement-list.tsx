@@ -1,10 +1,9 @@
 "use client";
 
-import clsx from "clsx";
-import { useRefinementList } from "react-instantsearch";
-import { useSearchParams, usePathname } from "next/navigation";
-import React from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
+import { MouseEvent, useEffect, useRef, useState } from "react";
+import { useRefinementList } from "react-instantsearch";
 
 interface AlgoliaRefinementListProps {
   attribute: string;
@@ -22,26 +21,21 @@ function RefinementItem({
   isRefined: boolean;
   refine: () => void;
 }) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = (e: MouseEvent) => {
     e.preventDefault();
     refine();
   };
 
   return (
-    <li className="mt-2 flex text-black dark:text-white">
+    <li className="flex text-black dark:text-white">
       <button
         onClick={handleClick}
         className={clsx(
-          "w-full text-left text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100",
-          {
-            "underline underline-offset-4 font-medium": isRefined,
-          },
+          "w-full text-left text-sm hover:font-bold cursor-pointer",
+          isRefined ? "font-bold" : "font-thin"
         )}
       >
-        {value} ({count})
+        {value}
       </button>
     </li>
   );
@@ -59,12 +53,12 @@ function RefinementItemDropdown({
   }>;
   refine: (value: string) => void;
 }) {
-  const [active, setActive] = React.useState("");
-  const [openSelect, setOpenSelect] = React.useState(false);
-  const ref = React.useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState("");
+  const [openSelect, setOpenSelect] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+  useEffect(() => {
+    const handleClickOutside = (event: globalThis.MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
         setOpenSelect(false);
       }
@@ -74,7 +68,7 @@ function RefinementItemDropdown({
     return () => window.removeEventListener("click", handleClickOutside);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const activeItem = items.find((item) => item.isRefined);
     setActive(activeItem ? activeItem.label : "All Categories");
   }, [items]);
@@ -122,11 +116,11 @@ export default function AlgoliaRefinementList({
   return (
     <nav>
       {title ? (
-        <h3 className="hidden text-xs text-neutral-500 md:block dark:text-neutral-400">
+        <h3 className="hidden text-xs text-neutral-500 md:block dark:text-neutral-400 mb-2">
           {title}
         </h3>
       ) : null}
-      <ul className="hidden md:block">
+      <ul className="hidden md:block space-y-1">
         {items.map((item) => (
           <RefinementItem
             key={item.value}
